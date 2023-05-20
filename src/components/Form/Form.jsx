@@ -40,7 +40,7 @@ export default function Form({addContact}) {
         <form onSubmit={handleSubmit}>
         <TextField
           inputProps={{
-            pattern: "^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$",
+            pattern: "^[a-zA-Z-яА-Я]+(([' -][a-zA-Z-яА-Я ])?[a-zA-Z-яА-Я]*)*$",
             title: "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"}}
             id="outlined-basic"
             label="Name" 
@@ -53,7 +53,7 @@ export default function Form({addContact}) {
         {' '}
         <TextField
           inputProps={{
-            pattern: "\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}",
+            pattern: "?{1,4}?[-.]??{1,3}??[-.]?{1,4}[-.]?{1,4}[-.]?{1,9}",
             title: "Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"}}
             id="outlined-basic"
             label="Telephone number" 

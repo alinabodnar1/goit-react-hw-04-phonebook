@@ -2,12 +2,57 @@ import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import PropTypes from 'prop-types';
 import List from '@mui/material/List';
+import TextField from '@mui/material/TextField';
 
-export default function ContactsListItem({contact, onDelete}){
-        return (
+export default function ContactsListItem({contact, onDelete, onEdit}){
+    const [name, setName] = useState(contact.name);
+    const [number, setNumber] = useState(contact.number);
+    const [isEdit, setIsEdit] = useState(false);
+    
+    const toggleEdit = () => {
+        setIsEdit(prevState => !prevState);
+        if (isEdit) {
+            onEdit({
+                name,
+                number,
+                id: contact.id
+            })
+        }
+    }
+
+    return (
             <List key={contact.id}>
-                {contact.name} {' '}
-                {contact.number} {' '}
+               
+            {isEdit ? 
+                <>
+                    <TextField
+                        id="standard-basic"
+                        label="Standard"
+                        variant="standard"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)} />
+                    {' '}
+                    <TextField
+                        id="standard-basic"
+                        label="Standard"
+                        variant="standard"
+                        value={number}
+                        onChange={(e)=> setNumber(e.target.value)}
+                    />
+                </>
+                : 
+                <>
+                    <span>{contact.name}</span> 
+                    <span>{contact.number}</span> 
+                </>
+               }
+                 <Button
+                    variant="outlined"
+                    type="button"
+                    onClick={toggleEdit}
+                >    
+                {isEdit ? 'SAVE' : 'EDIT'}
+                </Button> {' '}
                 <Button
                     variant="outlined"
                     type="button"
@@ -27,4 +72,5 @@ ContactsListItem.propTypes = {
             number: PropTypes.string.isRequired,    
         }),
     onDelete: PropTypes.func.isRequired,
+    //  onDelete: PropTypes.func.isRequired,
 }

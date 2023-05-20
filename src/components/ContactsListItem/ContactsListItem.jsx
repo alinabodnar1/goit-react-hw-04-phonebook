@@ -26,15 +26,18 @@ export default function ContactsListItem({contact, onDelete, onEdit}){
             {isEdit ? 
                 <>
                     <TextField
+                        margin={'dense'}
+                        className='item'
                         id="standard-basic"
-                        label="Standard"
+                        label="Change Name"
                         variant="standard"
                         value={name}
                         onChange={(e) => setName(e.target.value)} />
                     {' '}
                     <TextField
+                        margin={'dense'}
                         id="standard-basic"
-                        label="Standard"
+                        label="Change Number"
                         variant="standard"
                         value={number}
                         onChange={(e)=> setNumber(e.target.value)}
@@ -42,8 +45,8 @@ export default function ContactsListItem({contact, onDelete, onEdit}){
                 </>
                 : 
                 <>
-                    <span>{contact.name}</span> 
-                    <span>{contact.number}</span> 
+                    <span>{contact.name}</span> {' '}
+                    <span>{contact.number}</span> {' '}
                 </>
                }
                  <Button
@@ -53,7 +56,7 @@ export default function ContactsListItem({contact, onDelete, onEdit}){
                 >    
                 {isEdit ? 'SAVE' : 'EDIT'}
                 </Button> {' '}
-                <Button
+                <Button 
                     variant="outlined"
                     type="button"
                     onClick={() => onDelete(contact.id)}
@@ -70,7 +73,7 @@ ContactsListItem.propTypes = {
             id: PropTypes.string.isRequired,
             name: PropTypes.string.isRequired,
             number: PropTypes.string.isRequired,    
-        }),
+        }).isRequired,
     onDelete: PropTypes.func.isRequired,
-    //  onDelete: PropTypes.func.isRequired,
+    onEdit: PropTypes.func.isRequired,
 }

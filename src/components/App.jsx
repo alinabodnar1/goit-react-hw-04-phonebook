@@ -7,15 +7,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function App() {
-  const [contacts, setContacts] = useState(() => {
-    return JSON.parse(localStorage.getItem('contacts')) ?? [];
-  })
-  
   const [filter, setFilter] = useState('');
+  const [contacts, setContacts] = useState([]);
+  
+  // const [contacts, setContacts] = useState(() => {
+  //   return JSON.parse(localStorage.getItem('contacts')) ?? [];
+  // })
 
   useEffect(() => {
     const localContact = localStorage.getItem('contact');
-
     if (localContact !== null) {
       setContacts(JSON.parse(localContact));
       }
@@ -23,10 +23,16 @@ export default function App() {
 
 
   useEffect(() => {
-    localStorage.setItem('contact', JSON.stringify(contacts));
+    contacts && localStorage.setItem('contact', JSON.stringify(contacts));
   },[contacts])
   
   const addContact = ({ name, number }) => {
+     if (contacts.some(contact => contact.name.toLowerCase().trim() === name.toLowerCase().trim())) {
+      return toast.error(`The contact "${name}" is already in the contacts!`);
+    } else {
+      toast.success("The contact is created  successfully!");
+     }
+    
     const contact = {
       id: nanoid(),
       name,
@@ -38,12 +44,6 @@ export default function App() {
         contact
       ]
     });
-  
-    if (contacts.some(contact => contact.name.toLowerCase().trim() === name.toLowerCase().trim())) {
-      return toast.error(`The contact "${name}" is already in the contacts!`);
-    } else {
-      toast.success("The contact is created  successfully!");
-    }
   }
 
   const handleChange = ({target}) => {
